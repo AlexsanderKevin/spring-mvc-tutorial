@@ -29,7 +29,7 @@ public class Professor {
 	@Enumerated(EnumType.STRING) // registra o valor do enum como String no banco
 	private StatusProfessor StatusProfessor;
 	
-//	public Professor() { }
+	public Professor() { }
 	
 	public Professor(String nome, BigDecimal salario, StatusProfessor status) {
 		this.setNome(nome);
