@@ -28,4 +28,12 @@ public class ProfessorController {
 
 		return mv;
 	}
+	
+	@GetMapping("/professores/new")
+	public ModelAndView nnew() {
+		ModelAndView mv = new ModelAndView("/professores/new");
+		mv.addObject("StatusProfessor", StatusProfessor.values());
+
+		return mv;
+	}
 }
