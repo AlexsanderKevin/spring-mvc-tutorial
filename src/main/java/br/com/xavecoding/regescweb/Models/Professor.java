@@ -19,15 +19,21 @@ import lombok.Setter;
 public class Professor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // torna o Id autoincremental no banco de dados
-	private Long id;
+	private Long Id;
 
 	@Column(nullable = false)
-	private String nome;
+	private String Nome;
 
-	private BigDecimal salario;
+	private BigDecimal Salario;
 
 	@Enumerated(EnumType.STRING) // registra o valor do enum como String no banco
-	private StatusProfessor statusProfessor;
+	private StatusProfessor StatusProfessor;
 	
-	public Professor() { }
+//	public Professor() { }
+	
+	public Professor(String nome, BigDecimal salario, StatusProfessor status) {
+		this.setNome(nome);
+		this.setSalario(salario);
+		this.setStatusProfessor(status);
+	}
 }
