@@ -2,9 +2,11 @@ package br.com.xavecoding.regescweb.Controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,11 +40,21 @@ public class ProfessorController {
 	}
 	
 	@PostMapping("/professores")
-	public String create(RequisicaoNovoProfessor requisicao) {
-		Professor professor = requisicao.ToProfessor();
-		// Persiste os dados no banco
-		this.professorRepository.save(professor);
+									 // @Valid = Garante que o valor passado para a DTO sejam validos, de acordo com as
+									// regras do proprio DTO                                      // Objeto de resultado para validação
+	public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			System.out.println("\n ERRO \n");
+			
+			return "redirect:/professores";
+		} else {
+			Professor professor = requisicao.ToProfessor();
+			// Persiste os dados no banco
+			this.professorRepository.save(professor);
 
-		return "redirect:/professores";
+			return "redirect:/professores";
+		}
+
 	}
 }

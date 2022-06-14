@@ -2,6 +2,10 @@ package br.com.xavecoding.regescweb.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import br.com.xavecoding.regescweb.Models.Professor;
 import br.com.xavecoding.regescweb.Models.StatusProfessor;
 import lombok.Getter;
@@ -10,7 +14,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequisicaoNovoProfessor {
+	@NotBlank
+	@NotNull
 	private String Nome;
+	@NotNull
+	@DecimalMin(value="950.00", inclusive=false)
 	private BigDecimal Salario;
 	private StatusProfessor StatusProfessor;
 	
