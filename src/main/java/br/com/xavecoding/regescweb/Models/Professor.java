@@ -36,4 +36,12 @@ public class Professor {
 		this.setSalario(salario);
 		this.setStatusProfessor(status);
 	}
+	
+	public String ToString() {
+		return "Professor { " +
+					"id: " + this.getId() +", "+
+					"nome:  " +  this.getNome() +", "+
+					"salario: " + this.getSalario() +", "+
+					"status: " + this.getStatusProfessor() +" }";
+	}
 }

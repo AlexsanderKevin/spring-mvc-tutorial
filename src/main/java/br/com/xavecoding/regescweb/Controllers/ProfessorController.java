@@ -1,13 +1,12 @@
 package br.com.xavecoding.regescweb.Controllers;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.xavecoding.regescweb.Models.Professor;
@@ -35,5 +34,13 @@ public class ProfessorController {
 		mv.addObject("StatusProfessor", StatusProfessor.values());
 
 		return mv;
+	}
+	
+	@PostMapping("/professores")
+	public String create(Professor professor) {
+		System.out.println("\n****************************************\n");
+		System.out.println(professor.ToString());
+		System.out.println("\n****************************************\n");
+		return "redirect:/professores";
 	}
 }
