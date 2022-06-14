@@ -22,6 +22,14 @@ public class RequisicaoNovoProfessor {
 	private BigDecimal Salario;
 	private StatusProfessor StatusProfessor;
 	
+	public RequisicaoNovoProfessor(String nome, BigDecimal salario, StatusProfessor status) {
+		this.setNome(nome);
+		this.setSalario(salario);
+		this.setStatusProfessor(status);
+	}
+	
+	public RequisicaoNovoProfessor() {};
+	
 	public Professor ToProfessor() {
 		Professor prof = new Professor();
 		prof.setNome(this.Nome);

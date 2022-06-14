@@ -42,18 +42,23 @@ public class ProfessorController {
 	@PostMapping("/professores")
 									 // @Valid = Garante que o valor passado para a DTO sejam validos, de acordo com as
 									// regras do proprio DTO                                      // Objeto de resultado para validação
-	public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult result) {
+	public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult result) {
 		
 		if(result.hasErrors()) {
 			System.out.println("\n ERRO \n");
 			
-			return "redirect:/professores";
+			ModelAndView mv = new ModelAndView("/professores/new");
+			mv.addObject("StatusProfessor", StatusProfessor.values());
+			
+			return mv;
 		} else {
 			Professor professor = requisicao.ToProfessor();
 			// Persiste os dados no banco
 			this.professorRepository.save(professor);
+			
+			ModelAndView mv = new ModelAndView("redirect:/professores");
 
-			return "redirect:/professores";
+			return mv;
 		}
 
 	}

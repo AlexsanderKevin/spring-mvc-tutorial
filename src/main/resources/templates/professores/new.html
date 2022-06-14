@@ -18,20 +18,26 @@
 	
 		<div class="container">
 			<div class="row">
-				<form action="/professores" method="POST">
+				<form th:object="${requisicaoNovoProfessor}" action="/professores" method="POST">
 					<div class="mb-3">
 						<label class="form-label">Nome</label>
-						<input class="form-control" type="text" name="nome">
+						<input class="form-control" type="text" th:field="*{Nome}">
+						<!-- 
+						<input class="form-control" type="text" name="Nome">
+						 -->
 						<div></div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Salario</label>
-						<input class="form-control" type="text" name="salario">
+						<!-- 
+						<input class="form-control" type="text" name="salario" >
+						 -->
+						<input class="form-control" type="text" th:field="*{Salario}" >
 						<div></div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Status</label>	
-						<select class="form-select" name="statusProfessor">
+						<select class="form-select" th:field="*{StatusProfessor}">
 							<option th:each="status : ${StatusProfessor}" th:value="${status}" th:text="${status}"></option>
 						</select>
 					</div>
