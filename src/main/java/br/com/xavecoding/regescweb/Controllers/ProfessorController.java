@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.xavecoding.regescweb.Models.Professor;
 import br.com.xavecoding.regescweb.Models.StatusProfessor;
+import br.com.xavecoding.regescweb.dto.RequisicaoNovoProfessor;
 import br.com.xavecoding.regescweb.repository.ProfessorRepository;
 
 @Controller
@@ -37,10 +38,11 @@ public class ProfessorController {
 	}
 	
 	@PostMapping("/professores")
-	public String create(Professor professor) {
-		System.out.println("\n****************************************\n");
-		System.out.println(professor.ToString());
-		System.out.println("\n****************************************\n");
+	public String create(RequisicaoNovoProfessor requisicao) {
+		Professor professor = requisicao.ToProfessor();
+		// Persiste os dados no banco
+		this.professorRepository.save(professor);
+
 		return "redirect:/professores";
 	}
 }
