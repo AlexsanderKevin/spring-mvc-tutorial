@@ -1,6 +1,7 @@
 package br.com.xavecoding.regescweb.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,7 +45,6 @@ public class ProfessorController {
 									 // @Valid = Garante que o valor passado para a DTO sejam validos, de acordo com as
 									// regras do proprio DTO                                      // Objeto de resultado para validação
 	public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult result) {
-		
 		if(result.hasErrors()) {
 			System.out.println("\n ERRO \n");
 			
@@ -60,6 +61,25 @@ public class ProfessorController {
 
 			return mv;
 		}
+	}
+	
+	@GetMapping("/professores/{id}")
+	public ModelAndView show(@PathVariable Long id) {
+		Optional<Professor> optional = this.professorRepository.findById(id);
 
+		if(optional.isPresent()) {
+			Professor professor = optional.get();
+
+			ModelAndView mv = new ModelAndView("/professores/show");
+			mv.addObject("professor", professor);
+			
+			return mv;
+
+		} else {
+			System.out.println("Não foi encontrado um professor de ID = " + id);
+			ModelAndView mv = new ModelAndView("redirect:/professores");
+
+			return  mv;
+		}
 	}
 }

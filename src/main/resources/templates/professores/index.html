@@ -3,7 +3,7 @@
   <head th:replace="~{fragmentos :: head('Professores')}"></head>
   <body>
   
-  <header th:replace="~{fragmentos :: nav('Lista de Professores')}"></header>
+  <header th:replace="~{fragmentos :: nav('Professores')}"></header>
 
   <div class="container">
 	<table class="table">
@@ -24,7 +24,7 @@
       			<td th:text="${professor.getNome()}"></td>
       			<td th:text="${professor.getSalario()}"></td>
       			<td th:text="${professor.getStatusProfessor()}"></td>
-      			<td><a href="">Detalhes</a></td>
+      			<td><a th:href="@{/professores/{professorId} (professorId = ${professor.getId()})}">Detalhes</a></td>
       			<td><a href="">Editar</a></td>
       			<td><a href="">Deletar</a></td>
     		</tr>
