@@ -25,7 +25,7 @@
       			<td th:text="${professor.getSalario()}"></td>
       			<td th:text="${professor.getStatusProfessor()}"></td>
       			<td><a th:href="@{/professores/{professorId} (professorId = ${professor.getId()})}">Detalhes</a></td>
-      			<td><a href="">Editar</a></td>
+      			<td><a th:href="@{/professores/{professorId}/edit (professorId = ${professor.getId()})}">Editar</a></td>
       			<td><a href="">Deletar</a></td>
     		</tr>
   		</tbody>

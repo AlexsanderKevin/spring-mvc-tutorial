@@ -11,19 +11,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.xavecoding.regescweb.Models.Professor;
 import br.com.xavecoding.regescweb.Models.StatusProfessor;
-import br.com.xavecoding.regescweb.dto.RequisicaoNovoProfessor;
+import br.com.xavecoding.regescweb.dto.ProfessorDTO;
 import br.com.xavecoding.regescweb.repository.ProfessorRepository;
 
+// anotação para especificar que essa é uma classe de controller
 @Controller
+// anotação para definir "/professores" como o inicio de todas as URLs mapeadas
+@RequestMapping("/professores")
 public class ProfessorController {
 	@Autowired // Faz a injeção de dependencia automaticamente;
 	private ProfessorRepository professorRepository;
 
-	@GetMapping("/professores")
+	@GetMapping("")
 	public ModelAndView index() {
 		List<Professor> professores = this.professorRepository.findAll();
 
@@ -33,18 +37,18 @@ public class ProfessorController {
 		return mv;
 	}
 	
-	@GetMapping("/professores/new")
-	public ModelAndView nnew(RequisicaoNovoProfessor requisicao) {
+	@GetMapping("/new")
+	public ModelAndView nnew(ProfessorDTO requisicao) {
 		ModelAndView mv = new ModelAndView("/professores/new");
 		mv.addObject("StatusProfessor", StatusProfessor.values());
 
 		return mv;
 	}
 	
-	@PostMapping("/professores")
+	@PostMapping("")
 									 // @Valid = Garante que o valor passado para a DTO sejam validos, de acordo com as
 									// regras do proprio DTO                                      // Objeto de resultado para validação
-	public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult result) {
+	public ModelAndView create(@Valid ProfessorDTO requisicao, BindingResult result) {
 		if(result.hasErrors()) {
 			System.out.println("\n ERRO \n");
 			
@@ -63,7 +67,7 @@ public class ProfessorController {
 		}
 	}
 	
-	@GetMapping("/professores/{id}")
+	@GetMapping("/{id}")
 	public ModelAndView show(@PathVariable Long id) {
 		Optional<Professor> optional = this.professorRepository.findById(id);
 
@@ -80,6 +84,25 @@ public class ProfessorController {
 			ModelAndView mv = new ModelAndView("redirect:/professores");
 
 			return  mv;
+		}
+	}
+	 
+	@GetMapping("/{id}/edit")
+	public ModelAndView edit(@PathVariable Long id, ProfessorDTO requisicao) {
+		Optional<Professor> optional = this.professorRepository.findById(id);
+		
+		if(optional.isPresent()) {
+			Professor professor = optional.get();
+			requisicao.fromProfessor(professor);
+			
+			ModelAndView mv = new ModelAndView("/professores/edit");
+			mv.addObject("professorId", professor.getId());
+			mv.addObject("StatusProfessor", StatusProfessor.values());
+			return mv;
+
+		} else {
+			ModelAndView mv = new ModelAndView("redirect:/professores");
+			return mv;
 		}
 	}
 }

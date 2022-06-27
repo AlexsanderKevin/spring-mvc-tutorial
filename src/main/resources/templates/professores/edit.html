@@ -1,8 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-srict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
+  <head th:replace="~{fragmentos :: head('Editar Professor')}"></head>
   <body>
-  <header th:replace="~{fragmentos :: nav('Novo Professor')}"></header>
+  <header th:replace="~{fragmentos :: nav('Editar Professor # ' + ${professorId})}"></header>
 	<div class="container">
 	
 		<div class="container">
@@ -11,17 +11,11 @@
 					<div class="mb-3">
 						<label class="form-label">Nome</label>
 						<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{Nome}">
-						<!-- 
-						<input class="form-control" type="text" name="Nome">
-						 -->
 						<div class="invalid-feedback" th:errors="*{Nome}"></div>
 						<br>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Salario</label>
-						<!-- 
-						<input class="form-control" type="text" name="salario" >
-						 -->
 						<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{Salario}" >
 						<div class="invalid-feedback" th:errors="*{Salario}"></div>
 						<br>
