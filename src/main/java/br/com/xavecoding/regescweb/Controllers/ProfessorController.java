@@ -44,7 +44,7 @@ public class ProfessorController {
 
 		return mv;
 	}
-	
+
 	@PostMapping("")
 									 // @Valid = Garante que o valor passado para a DTO sejam validos, de acordo com as
 									// regras do proprio DTO                                      // Objeto de resultado para validação
@@ -62,7 +62,6 @@ public class ProfessorController {
 			this.professorRepository.save(professor);
 			
 			ModelAndView mv = new ModelAndView("redirect:/professores");
-
 			return mv;
 		}
 	}
@@ -103,6 +102,36 @@ public class ProfessorController {
 		} else {
 			ModelAndView mv = new ModelAndView("redirect:/professores");
 			return mv;
+		}
+	}
+	
+	@PostMapping("/{id}")
+	public ModelAndView update(@PathVariable Long id, @Valid ProfessorDTO requisicao, BindingResult result) {
+		Optional<Professor> optional = this.professorRepository.findById(id);
+
+		if(result.hasErrors()) {
+			 System.out.println("\n ERRO \n");
+
+			 Professor professor = optional.get();
+			 requisicao.fromProfessor(professor);
+			 
+			 ModelAndView mv = new ModelAndView("/professores/edit");
+			 mv.addObject("professorId", professor.getId());
+			 mv.addObject("StatusProfessor", StatusProfessor.values());
+			 return mv;
+
+		} else {
+
+			if (optional.isPresent()) {
+				Professor professor = requisicao.ToProfessor(optional.get());
+				this.professorRepository.save(professor);
+				
+				return new ModelAndView ("redirect:/professores/" + professor.getId());
+			} else {
+				System.out.println("\n Professor não encontrado \n");
+				
+				return new ModelAndView("redirect:/professores");
+			}
 		}
 	}
 }

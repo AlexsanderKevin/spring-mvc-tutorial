@@ -39,6 +39,14 @@ public class ProfessorDTO {
 		return prof;
 	}
 	
+	public Professor ToProfessor(Professor prof) {
+		prof.setNome(this.Nome);
+		prof.setSalario(this.Salario);
+		prof.setStatusProfessor(this.StatusProfessor);
+		
+		return prof;
+	}
+	
 	public void fromProfessor(Professor professor) {
 		this.Nome = professor.getNome();
 		this.Salario = professor.getSalario();
